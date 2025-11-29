@@ -5,37 +5,37 @@ import { useParams } from 'next/navigation';
 import { fetchNoteById } from '@/lib/api';
 import css from './NoteDetails.module.css';
 
+import type { Note } from '@/types/note';
+
 const NoteDetailsClient = () => {
   const { id } = useParams<{ id: string }>();
-
-  const { data: note, isLoading, isFetching, error } = useQuery({
+  const {
+    data: note,
+    isLoading,
+    isFetching,
+    error,
+  } = useQuery<Note, Error>({
     queryKey: ['note', id],
     queryFn: () => fetchNoteById(id),
     refetchOnMount: false,
+    staleTime: 1000 * 60 * 5,
+    enabled: !!id,
   });
 
-  if (isLoading || isFetching) {
-    return (
-      <div className={css.container}>
-        <p>Loading, please wait...</p>
-      </div>
-    );
-  }
+  let content;
 
-  if (error || !note) {
-    return (
-      <div className={css.container}>
-        <p>Something went wrong.</p>
-      </div>
-    );
-  }
+  if (!id) {
+    content = <p>Error: Note ID is missing from the URL.</p>;
+  } else if (isLoading || isFetching) {
+    content = <p>Loading, please wait...</p>;
+  } else if (error || !note) {
+    content = <p>Something went wrong.</p>;
+  } else {
+    const formattedDate = note.updatedAt
+      ? `Updated at: ${note.updatedAt}`
+      : `Created at: ${note.createdAt}`;
 
-  const formattedDate = note.updatedAt
-    ? `Updated at: ${note.updatedAt}`
-    : `Created at: ${note.createdAt}`;
-
-  return (
-    <div className={css.container}>
+    content = (
       <div className={css.item}>
         <div className={css.header}>
           <h2>{note.title}</h2>
@@ -43,8 +43,10 @@ const NoteDetailsClient = () => {
         <p className={css.content}>{note.content}</p>
         <p className={css.date}>{formattedDate}</p>
       </div>
-    </div>
-  );
+    );
+  }
+
+  return <div className={css.container}>{content}</div>;
 };
 
 export default NoteDetailsClient;

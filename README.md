@@ -1,66 +1,180 @@
+- ☁️ **Vercel Deployment**
+- 📦 **ESLint + Prettier**
+
+---
+
+## 📂 Структура Проєкту
+
+Проєкт побудовано з використанням **App Router** з чітким розділенням на Серверні та Клієнтські
+компоненти.
+
+```bash
+/
+├── app/
+│   ├── layout.tsx             # Глобальний layout (Header, Footer, TanStackProvider)
+│   ├── loading.tsx            # Глобальний UI завантаження для SSR
+│   ├── page.tsx               # Головна сторінка (/)
+│   └── notes/                 # Маршрут: /notes
+│       ├── error.tsx          # Error Boundary для помилок SSR/рендерингу
+│       ├── Notes.client.tsx   # Клієнтська логіка: useQuery, пошук, пагінація
+│       ├── page.tsx           # Серверний компонент: prefetchQuery (SSR)
+│       └── [id]/              # Динамічний маршрут: /notes/[id]
+│           ├── error.tsx      # Error Boundary для деталей нотатки
+│           ├── NoteDetails.client.tsx # Клієнтська логіка: useQuery, useParams
+│           └── page.tsx       # Серверний компонент: prefetchQuery(id)
+├── components/                # Багаторазові компоненти
+│   ├── Header/
+│   ├── Footer/
+│   ├── TanStackProvider/      # Провайдер для React Query
+│   └── ... (NoteList, NoteForm, SearchBox та ін.)
+├── hooks/                     # Кастомні хуки
+│   └── useModalControl.ts
+├── lib/                       # Службові функції
+│   └── api.ts                 # Усі функції роботи з API (fetchNotes, fetchNoteById, CRUD)
+├── types/                     # Глобальні типи
+│   └── note.ts                # Інтерфейси Note, NoteFormValues та ін.
+└── public/
+```
+
+Ви абсолютно праві! Я надав вам текст для README.md у двох окремих повідомленнях, що ускладнює його
+копіювання. Прошу вибачення за незручності.
+
+Ось повний вміст файлу README.md, об'єднаний та оформлений як єдиний Markdown документ. Ви можете
+просто скопіювати весь цей текст і зберегти його як файл README.md у корені вашого репозиторію.
+
+📝 README.md (Повний вміст) Markdown
+
 # 📝 NoteHub (Next.js версія)
 
-Застосунок для створення, перегляду, редагування та видалення нотаток.  
-Побудовано на **Next.js 15**, з використанням **App Router**, **React Query**, **TypeScript** та власного API.
+Застосунок для створення, перегляду, редагування та видалення нотаток. Побудовано на **Next.js 15**,
+з використанням **App Router**, **TanStack Query**, **TypeScript** та власного API.
+
+Проєкт реалізує багатосторінкову структуру та використовує **Серверний Рендеринг (SSR)** із
+попереднім завантаженням (prefetch) даних.
 
 ---
 
 ## 🚀 Демо
 
-🔗 **Live Demo:** https://06-notehub-nextjs-pt6tdtv61-3280673s-projects.vercel.app  
-🔗 **GitHub Репозиторій:** https://github.com/Oleksandr-Sulyma/06-notehub-nextjs
+🔗 **Live Demo:** `https://06-notehub-nextjs-pt6tdtv61-3280673s-projects.vercel.app` 🔗 **GitHub
+Репозиторій:** `https://github.com/Oleksandr-Sulyma/06-notehub-nextjs`
 
 ---
 
 ## 🧩 Технології
 
 - ⚛️ **Next.js 15 (App Router)**
-- 🧠 **TypeScript**
-- 🗄️ **@tanstack/react-query**
-- 🛠️ **Zustand** (для глобального стану теми)
-- 🎨 **CSS Modules**
-- 🔥 **Custom API routes**
-- 📦 **ESLint + Prettier**
+- 🧠 **TypeScript** (для типізації компонентів, хуків та API)
+- 🗄️ **@tanstack/react-query** (для SSR з гідратацією, кешування та управління станом даних)
+- 🛠️ **Zustand** (для глобального стану теми, якщо використовується)
+- 🎨 **CSS Modules** (для компонентної стилізації)
+- 📦 **axios** (для HTTP-запитів до API)
+- ⏳ **use-debounce** (для відкладеного пошуку)
 - ☁️ **Vercel Deployment**
+- 📦 **ESLint + Prettier**
 
 ---
 
 ## 📂 Структура Проєкту
 
-```bash
-app/
-├── error.tsx
-├── global.css
-├── layout.tsx
-├── loading.tsx
-├── pagpageerror.tsx
-├── notes/
-│   ├── Notes.client.tsx
-│   ├── NotesPage.modules.css
-│   ├── page.tsx
-│   └── [id]/
-│       ├── page.tsx
-│       └── NoteDetails.module.css
-├── components/
+Проєкт побудовано з використанням **App Router** з чітким розділенням на Серверні та Клієнтські
+компоненти.
+
+````bash
+/
+├── app/
+│   ├── layout.tsx             # Глобальний layout (Header, Footer, TanStackProvider)
+│   ├── loading.tsx            # Глобальний UI завантаження для SSR
+│   ├── page.tsx               # Головна сторінка (/)
+│   └── notes/                 # Маршрут: /notes
+│       ├── error.tsx          # Error Boundary для помилок SSR/рендерингу
+│       ├── Notes.client.tsx   # Клієнтська логіка: useQuery, пошук, пагінація
+│       ├── page.tsx           # Серверний компонент: prefetchQuery (SSR)
+│       └── [id]/              # Динамічний маршрут: /notes/[id]
+│           ├── error.tsx      # Error Boundary для деталей нотатки
+│           ├── NoteDetails.client.tsx # Клієнтська логіка: useQuery, useParams
+│           └── page.tsx       # Серверний компонент: prefetchQuery(id)
+├── components/                # Багаторазові компоненти
 │   ├── Header/
-│   │   ├── Header.tsx
-│   │   └── Header.module.css
 │   ├── Footer/
-│   │   ├── Footer.tsx
-│   │   └── Footer.module.css
-│   ├── NoteItem/
-│   │   ├── NoteItem.tsx
-│   │   └── NoteItem.module.css
-│   └── Loader/
-│       ├── Loader.tsx
-│       └── Loader.module.css
-│       ....
-├── hooks/
-│   ├── useModalControl.tsx
-├── lib/
-│   └── api.ts
-├── types/
-│   └── global.d.ts
-│   └── note.ts
-public/
-└── favicon.ico
+│   ├── TanStackProvider/      # Провайдер для React Query
+│   └── ... (NoteList, NoteForm, SearchBox та ін.)
+├── hooks/                     # Кастомні хуки
+│   └── useModalControl.ts
+├── lib/                       # Службові функції
+│   └── api.ts                 # Усі функції роботи з API (fetchNotes, fetchNoteById, CRUD)
+├── types/                     # Глобальні типи
+│   └── note.ts                # Інтерфейси Note, NoteFormValues та ін.
+└── public/
+``
+---
+
+## ⚙️ Налаштування Локально
+### 1. Клонування репозиторію
+
+```bash
+git clone [https://github.com/Oleksandr-Sulyma/06-notehub-nextjs](https://github.com/Oleksandr-Sulyma/06-notehub-nextjs)
+cd 06-notehub-nextjs
+````
+
+---
+
+### 2. Встановлення залежностей
+
+```bash
+npm install
+```
+
+---
+
+### 3. Створення .env.local файлу (Конфігурація API)
+
+У корені проєкту створіть файл .env.local і додайте свій токен доступу:
+
+Фрагмент коду
+
+```bash
+# Змінна має починатися з NEXT_PUBLIC_
+NEXT_PUBLIC_NOTEHUB_TOKEN=your_personal_token
+👉 Увага: Токен використовується у функції lib/api.ts для аутентифікації.
+```
+
+---
+
+### 4. Запуск локально
+
+```bash
+npm run dev
+n dev
+```
+
+Відкрийте у браузері: http://localhost:3000
+
+---
+
+## 💡 Основна Функціональність
+
+- ✅ Багатосторінковість: Маршрути /, /notes, /notes/[id].
+- ✅ Серверний Рендеринг (SSR): Попереднє завантаження списку нотаток (/notes) та деталей нотатки
+  (/notes/[id]) на сервері.
+- ✅ Кешування даних: Використання TanStack Query для гідратації кешу та управління станом на
+  клієнті.
+- ✅ Пошук нотаток за текстом з debounce.
+- ✅ Створення та видалення нотаток.
+- ✅ Пагінація списку нотаток.
+- ✅ Обробка станів завантаження (loading.tsx) та помилок (error.tsx).
+- ✅ Типізація TypeScript в усіх компонентах та API-функціях.
+
+---
+
+## 🧑‍💻 Автор
+
+Олександр Сулима
+
+-🔗 GitHub Профіль: https://github.com/Oleksandr-Sulyma
+
+---
+
+## 📜 Ліцензія
+
+Проєкт створений у навчальних цілях.
