@@ -1,23 +1,29 @@
+import { QueryClient, HydrationBoundary, dehydrate } from "@tanstack/react-query";
+import { fetchNotes } from "@/lib/api";
+import NotesClient from "./Notes.client";
 
-import type { Metadata } from "next";
+export default async function NotesPage() {
+  const queryClient = new QueryClient();
 
-export const metadata: Metadata = {
-  title: "Notes page",
-};
+  const params = {
+    search: "",
+    page: 1,
+    sortBy: "created" as const,
+  };
 
-import { getNotes } from "@/lib/api";
-import NoteList from "@/components/NoteList/NoteList";
+  const response = await fetchNotes(params);
+console.log(response);
 
+  queryClient.setQueryData(
+    ["notes", params.search, params.sortBy, params.page],
+    response
+  );
 
-const Notes = async () => {
-  const response = await getNotes();
- console.log(response);
- 
-  return <div>
-    <section>
-      <h1>Notes List</h1>
-      {response?.notes?.length > 0 && <NoteList notes={response.notes} />}
-    </section></div>;
+  const dehydratedState = dehydrate(queryClient);
+
+  return (
+    <HydrationBoundary state={dehydratedState}>
+      <NotesClient initialParams={params} />
+    </HydrationBoundary>
+  );
 }
-
-export default Notes;
