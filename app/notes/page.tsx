@@ -11,10 +11,10 @@ export default async function NotesPage() {
     sortBy: 'created' as const,
   };
 
-  const response = await fetchNotes(params);
-  console.log(response);
-
-  queryClient.setQueryData(['notes', params.search, params.sortBy, params.page], response);
+  await queryClient.prefetchQuery({
+    queryKey: ['notes', params.search, params.sortBy, params.page],
+    queryFn: () => fetchNotes(params),
+  });
 
   const dehydratedState = dehydrate(queryClient);
 
