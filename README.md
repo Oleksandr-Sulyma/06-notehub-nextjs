@@ -1,36 +1,66 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 📝 NoteHub (Next.js версія)
 
-## Getting Started
+Застосунок для створення, перегляду, редагування та видалення нотаток.  
+Побудовано на **Next.js 15**, з використанням **App Router**, **React Query**, **TypeScript** та власного API.
 
-First, run the development server:
+---
+
+## 🚀 Демо
+
+🔗 **Live Demo:** https://06-notehub-nextjs-pt6tdtv61-3280673s-projects.vercel.app  
+🔗 **GitHub Репозиторій:** https://github.com/Oleksandr-Sulyma/06-notehub-nextjs
+
+---
+
+## 🧩 Технології
+
+- ⚛️ **Next.js 15 (App Router)**
+- 🧠 **TypeScript**
+- 🗄️ **@tanstack/react-query**
+- 🛠️ **Zustand** (для глобального стану теми)
+- 🎨 **CSS Modules**
+- 🔥 **Custom API routes**
+- 📦 **ESLint + Prettier**
+- ☁️ **Vercel Deployment**
+
+---
+
+## 📂 Структура Проєкту
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+app/
+├── error.tsx
+├── global.css
+├── layout.tsx
+├── loading.tsx
+├── pagpageerror.tsx
+├── notes/
+│   ├── Notes.client.tsx
+│   ├── NotesPage.modules.css
+│   ├── page.tsx
+│   └── [id]/
+│       ├── page.tsx
+│       └── NoteDetails.module.css
+├── components/
+│   ├── Header/
+│   │   ├── Header.tsx
+│   │   └── Header.module.css
+│   ├── Footer/
+│   │   ├── Footer.tsx
+│   │   └── Footer.module.css
+│   ├── NoteItem/
+│   │   ├── NoteItem.tsx
+│   │   └── NoteItem.module.css
+│   └── Loader/
+│       ├── Loader.tsx
+│       └── Loader.module.css
+│       ....
+├── hooks/
+│   ├── useModalControl.tsx
+├── lib/
+│   └── api.ts
+├── types/
+│   └── global.d.ts
+│   └── note.ts
+public/
+└── favicon.ico
